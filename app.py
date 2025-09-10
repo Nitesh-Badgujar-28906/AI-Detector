@@ -8,7 +8,7 @@ import nltk
 nltk.download('punkt')
 nltk.download('punkt_tab')
 nltk.download('stopwords')
-model = joblib.load("model.pkl")
+model = joblib.load("AI_VS_HUMAN_classification_model.pkl")
 txt = st.text_area(
     "Text to analyze",
     placeholder="Enter text here..."
