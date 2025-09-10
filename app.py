@@ -10,7 +10,7 @@ nltk.download('punkt_tab')
 nltk.download('stopwords')
 
 # Load Model
-model = joblib.load("models/model.pkl")
+model = joblib.load("model.pkl")
 
 # Title Section
 st.markdown("""
