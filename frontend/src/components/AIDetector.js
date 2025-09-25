@@ -9,8 +9,11 @@ const AIDetector = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Use proxy for API calls in development, direct URL for production
-  const API_URL = process.env.NODE_ENV === 'production' ? '' : '';
+  // API URL configuration for different environments
+  const API_URL = process.env.REACT_APP_API_URL || 
+                  (process.env.NODE_ENV === 'production' 
+                    ? 'https://ai-detector-backend.onrender.com' 
+                    : 'http://localhost:5000');
 
   const handleTextChange = (e) => {
     setText(e.target.value);

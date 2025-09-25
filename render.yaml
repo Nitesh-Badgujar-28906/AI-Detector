@@ -1,0 +1,32 @@
+services:
+  # Flask Backend Service
+  - type: web
+    name: ai-detector-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.13
+      - key: PORT
+        value: 10000
+    healthCheckPath: /api/health
+
+  # React Frontend Service  
+  - type: web
+    name: ai-detector-frontend
+    env: static
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  # Add database configuration here if needed in the future
+  # - name: ai-detector-db
+  #   databaseName: ai_detector
+  #   user: ai_detector_user
