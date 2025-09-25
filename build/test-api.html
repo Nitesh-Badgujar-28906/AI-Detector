@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>AI Detector API Test</h1>
+    <button onclick="testAPI()">Test API Connection</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            
+            // Determine API URL based on environment
+            let apiUrl;
+            if (window.location.hostname.includes('app.github.dev')) {
+                // Codespaces environment
+                const currentUrl = window.location.hostname;
+                const apiHostname = currentUrl.replace('-3000.app.github.dev', '-5001.app.github.dev');
+                apiUrl = `https://${apiHostname}`;
+            } else {
+                // Local development
+                apiUrl = 'http://localhost:5001';
+            }
+            
+            console.log('Testing API at:', apiUrl);
+            resultDiv.innerHTML = `Testing API at: ${apiUrl}<br>`;
+            
+            try {
+                const response = await fetch(`${apiUrl}/health`);
+                const data = await response.json();
+                
+                resultDiv.innerHTML += `<strong>Success!</strong><br>`;
+                resultDiv.innerHTML += `Status: ${response.status}<br>`;
+                resultDiv.innerHTML += `Response: ${JSON.stringify(data, null, 2)}<br>`;
+                
+                // Test prediction endpoint
+                const testData = {
+                    text: "This is a test message to check if the AI detector API is working properly in Codespaces."
+                };
+                
+                const predResponse = await fetch(`${apiUrl}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const predData = await predResponse.json();
+                resultDiv.innerHTML += `<br><strong>Prediction Test:</strong><br>`;
+                resultDiv.innerHTML += `Status: ${predResponse.status}<br>`;
+                resultDiv.innerHTML += `Result: ${predData.prediction}<br>`;
+                resultDiv.innerHTML += `Confidence: AI=${predData.confidence.ai}%, Human=${predData.confidence.human}%<br>`;
+                
+            } catch (error) {
+                resultDiv.innerHTML += `<strong>Error:</strong> ${error.message}<br>`;
+                console.error('API test error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

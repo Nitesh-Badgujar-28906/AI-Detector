@@ -10,7 +10,7 @@ const AIDetector = () => {
   const [error, setError] = useState('');
 
   // Use proxy for API calls in development, direct URL for production
-  const API_URL = process.env.NODE_ENV === 'production' ? '/api' : '';
+  const API_URL = process.env.NODE_ENV === 'production' ? '' : '';
 
   const handleTextChange = (e) => {
     setText(e.target.value);
@@ -40,7 +40,7 @@ const AIDetector = () => {
     console.log('API URL:', API_URL); // Debug log
 
     try {
-      const response = await axios.post(`${API_URL}/predict`, {
+      const response = await axios.post(`${API_URL}/api/predict`, {
         text: text
       }, {
         headers: {
