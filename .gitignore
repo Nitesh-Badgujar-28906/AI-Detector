@@ -1,12 +1,44 @@
 # Python
 __pycache__/
 *.pyc
-
-# Virtual environment
-.venv/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
 
 # Streamlit
 .streamlit/
+
+# React/Node.js
+node_modules/
+frontend/build/
+frontend/dist/
+.npm
+.node_repl_history
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Coverage directory
+coverage/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
 
 # VS Code
 .vscode/
