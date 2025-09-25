@@ -1,7 +1,7 @@
 services:
-  # Flask Backend Service
+  # Single Flask Service (serves API + React frontend)
   - type: web
-    name: ai-detector-backend
+    name: ai-detector
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
@@ -10,20 +10,9 @@ services:
         value: 3.11.13
     healthCheckPath: /api/health
 
-  # React Frontend Service (Static Site)
-  - type: web
-    name: ai-detector-frontend
-    env: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: build
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-
-databases:
-  # Add database configuration here if needed in the future
-  # - name: ai-detector-db
-  #   databaseName: ai_detector
-  #   user: ai_detector_user
+# Future DB setup (optional)
+# databases:
+#   - name: ai-detector-db
+#     databaseName: ai_detector
+#     user: ai_detector_user
+#     
