@@ -36,7 +36,12 @@ except Exception as e:
 
 # Stemmer & Stopwords
 stemmer = PorterStemmer()
-stop_words = set(stopwords.words('english'))
+try:
+    stop_words = set(stopwords.words('english'))
+except LookupError:
+    # Fallback: minimal set if corpus missing (e.g., deployment forgot nltk_data)
+    print("⚠️  NLTK stopwords corpus not found. Using minimal fallback set. Add 'nltk_data/corpora/stopwords'.")
+    stop_words = {"the", "is", "and", "a", "an", "to", "of", "in", "that", "it", "on", "for"}
 
 
 # ---------------------------

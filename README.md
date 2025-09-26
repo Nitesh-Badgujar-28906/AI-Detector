@@ -24,12 +24,28 @@ notebooks/
 
 ## Requirements
 
-- Python 3.9+
-- Internet access on first run (to download NLTK resources like `punkt` and `stopwords`)
 
 ## Setup
 
 Create a virtual environment and install dependencies:
+
+## NLTK Data (Deployment Requirement)
+This application relies on NLTK resources: `punkt`, `punkt_tab`, and `stopwords`.
+
+These are bundled in a local `nltk_data/` directory which MUST be committed to the repository for platforms like Render (which cannot run interactive downloads during cold start reliably).
+
+To refresh or regenerate locally:
+```python
+import nltk
+for pkg in ["punkt", "punkt_tab", "stopwords"]:
+	nltk.download(pkg, download_dir="nltk_data")
+```
+Then commit the folder:
+```bash
+git add nltk_data
+git commit -m "Add/update NLTK data"
+```
+If the corpus is missing in production, the app will fall back to a minimal manual stopword set and log a warning, but accuracy will degrade.
 
 ```bash
 python3 -m venv .venv
