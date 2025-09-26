@@ -1,4 +1,3 @@
-# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -8,6 +7,11 @@ env/
 venv/
 .env
 .venv
+
+# --- NLTK Data ---
+# Do NOT ignore nltk_data/! This folder must be committed for production deployment.
+# If you have a global rule ignoring data/ or */data/, add an exception:
+!nltk_data/
 
 # Streamlit
 .streamlit/
