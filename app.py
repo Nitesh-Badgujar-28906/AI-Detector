@@ -40,8 +40,8 @@ def text_preprocessor(text):
     text = re.sub(r'[^a-zA-Z\s]', '', text)
     words = word_tokenize(text)
     filtered_words = [word.lower() for word in words if word.lower() not in stop_words]
-    filtered_steamed_words = [stemmer.stem(word) for word in filtered_words]
-    return ' '.join(filtered_steamed_words)
+    filtered_stemmed_words = [stemmer.stem(word) for word in filtered_words]
+    return ' '.join(filtered_stemmed_words)
 
 processed_txt = text_preprocessor(txt)
 
